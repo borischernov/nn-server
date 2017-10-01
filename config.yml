@@ -1,0 +1,21 @@
+server:
+  # Host / Port to listen on
+  host: 'localhost'		
+  port: 8000
+  # Caffe mode (cpu / gpu)
+  mode: cpu
+networks:
+  # Networks to be deployed
+  googlenet:	# Network path
+    model: ../python/data/googlenet/deploy.prototxt
+    weights: ../python/data/googlenet/bvlc_googlenet.caffemodel
+    input:
+      blob: data  # Input blob name
+      # Input processing options (see caffe.io.Transformer)
+      channel_swap: [2, 1, 0]
+      mean: [104, 117, 123]
+      raw_scale: 255.0
+      transpose: [2, 0, 1]
+    output:
+      blob: pool5/7x7_s1	# Output blob name
+      normalize: true		# Normalize output vector to unit length
